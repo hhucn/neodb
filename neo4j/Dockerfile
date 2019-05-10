@@ -4,7 +4,6 @@ MAINTAINER marc.feger@uni-duesseldorf.de
 
 RUN apk add --no-cache curl jq
 
-ADD plugins /var/lib/neo4j/plugins
-ADD entrypoint /var/lib/neo4j/entrypoint
+COPY . /var/lib/neo4j
 
 ENTRYPOINT ["bash", "/var/lib/neo4j/entrypoint/entrypoint.sh"]
