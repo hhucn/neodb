@@ -7,7 +7,6 @@ services:
       - "7474:7474"
       - "7687:7687"
     volumes:
-      - ./neo4j/plugins:/var/lib/neo4j/plugins
       - ./neo4j/entrypoint:/var/lib/neo4j/entrypoint
     environment:
       NEO4J_USERNAME: $NEO4J_USER
