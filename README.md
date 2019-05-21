@@ -22,7 +22,7 @@ These environment variables must be specified in the `.env`. In total, the follo
 
 ## Attention!
 Currently the password of `DB_PW` must not contain special characters like `?!%`.
-Change the password `DB_PW` for both D-BAS and NeoDB.
+Change the password `DB_PW` for both D-BAS and NeoDB to `FooBar`.
 
 ## Run NeoDB
 Run the following command:
