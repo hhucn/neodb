@@ -20,6 +20,24 @@ function wait_for_port() {
     echo "$(date "+%Y-%m-%d %T") INFO": "Port $2 is up and running after ${SECONDS} seconds at $1..."
 }
 
+
+function seed_database {
+	: '
+		This function concatenates all file which are required while seeding the Neo4J database.
+		This is also done, because otherwise ENV-Vars can not be passed to cypher-queries.
+
+		After everything is concatenated the whole database is seeded.
+	'
+	if [[ -f /var/lib/neo4j/entrypoint/.tmp ]] ; then
+      rm /var/lib/neo4j/entrypoint/.tmp
+	fi
+	bash /var/lib/neo4j/entrypoint/entrypoint_parameters.sh > /var/lib/neo4j/entrypoint/.tmp
+	echo  $(</var/lib/neo4j/entrypoint/neo4j-entrypoint.cql) >> /var/lib/neo4j/entrypoint/.tmp
+	bin/cypher-shell --fail-fast --debug --format verbose -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD}  < /var/lib/neo4j/entrypoint/.tmp
+	rm /var/lib/neo4j/entrypoint/.tmp
+
+}
+
 function wait_for_neo {
     : '
         This function waits for the Neo4J server to start on port 7687 and the Neo4J browser to start on port 7474.
@@ -43,7 +61,7 @@ function wait_for_neo {
     : '
         This section loads the basic discussion graphs.
     '
-    bin/cypher-shell --fail-fast --debug --format verbose -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD}  < /var/lib/neo4j/entrypoint/neo4j-entrypoint.cql
+		seed_database
     echo "$(date "+%Y-%m-%d %T") INFO": "-> Everything is up and running ..."
 
 }
