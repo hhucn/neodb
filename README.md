@@ -20,6 +20,20 @@ These environment variables must be specified in the `.env`. In total, the follo
 | DB_PORT         | Port of D-BAS DB                            | See D-BAS  |
 | DB_USER         | User of D-BAS DB                            | See D-BAS  |
 
+## Configuration
+The initial configuration can be found in the conf folder inside neo4j.conf.
+
+The configuration is not bound as a volume, because old configuration values are transferred each time the system is started. This can cause some problems, see also: <https://community.neo4j.com/t/cannot-edit-neo4j-conf/643/3>
+So the image has to be rebuilt every time the configurations are changed.
+
+All basic configurations are stored in neo4j.conf. Additionally some additional configurations are added. These include:
+
+| Configuration                              | Use                                                                 | Value                                                      |
+|--------------------------------------------|:-------------------------------------------------------------------:|:----------------------------------------------------------:|
+| browser.post_connect_cmd                   | Command to start a specific browser-guide while entering the browser| play https://s3.cs.uni-duesseldorf.de/neo4j/hello_dbas.html|
+| browser.remote_content_hostname_whitelist  | Allow :play to fetch data from every kind of URI                    | *                                                          |
+| dbms.security.procedures.unrestricted      | Enable external procedures                                          | algo.\*, apoc.\*                                           |
+
 ## Run NeoDB
 Run the following command:
 
