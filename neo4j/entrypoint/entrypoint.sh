@@ -10,7 +10,7 @@ function wait_for_port() {
         This function waits 60 seconds to determine whether a port on a host has been opened and activated on a host.
         The function receives as parameters the host and the port to be checked.
     '
-    echo "$(date "+%Y-%m-%d %T") INFO": "Start waiting for container to open port $2 at $1..."
+    echo "$(date "+%Y-%m-%d %T") INFO": "Start waiting to open port $2 at $1..."
     end="$((SECONDS+60))"
     while true; do
         nc -w 2 $1 $2 && break
@@ -48,6 +48,7 @@ function wait_for_neo {
 
     wait_for_port localhost 7687
     wait_for_port localhost 7474
+    wait_for_port db 5432
 
     echo "$(date "+%Y-%m-%d %T") INFO": "Change the default authentication of ${NEO4J_USERNAME}..."
     : '
