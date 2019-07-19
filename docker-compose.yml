@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   neo:
-    build: neo4j
+    build: .
     ports:
       - "5007:7474"
       - "7687:7687"

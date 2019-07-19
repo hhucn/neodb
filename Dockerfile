@@ -13,6 +13,6 @@ RUN wget https://jdbc.postgresql.org/download/postgresql-${POSTGRES_VERSION}.jar
 		wget https://github.com/neo4j-contrib/neo4j-graph-algorithms/releases/download/${ALGO_VERSION}/graph-algorithms-algo-${ALGO_VERSION}.jar -P /var/lib/neo4j/plugins && \
 		chmod +x /var/lib/neo4j/plugins/*.jar
 
-COPY . /var/lib/neo4j
+COPY /neo4j /var/lib/neo4j
 
 ENTRYPOINT ["bash", "/var/lib/neo4j/entrypoint/entrypoint.sh"]
