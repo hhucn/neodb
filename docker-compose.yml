@@ -4,9 +4,8 @@ services:
   neo:
     build: neo4j
     ports:
-      - "7474:7474"
+      - "5007:7474"
       - "7687:7687"
-      - "7473:7473"
     volumes:
       - ./neo4j/entrypoint:/var/lib/neo4j/entrypoint
     environment:
