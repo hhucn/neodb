@@ -2,9 +2,9 @@ version: "3.2"
 
 services:
   neo:
-    build: .
+    image: gitlab.cs.uni-duesseldorf.de:5001/cn-tsn/project/dbas/neodb
     ports:
-      - "7474:7474"
+      - "5007:7474"
       - "7687:7687"
     volumes:
       - ./neo4j/entrypoint:/var/lib/neo4j/entrypoint
