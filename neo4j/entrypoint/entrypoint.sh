@@ -48,7 +48,7 @@ function wait_for_neo {
 
     wait_for_port localhost 7687
     wait_for_port localhost 7474
-    wait_for_port db 5432
+    wait_for_port ${DB_HOST} ${DB_PORT}
 
     echo "$(date "+%Y-%m-%d %T") INFO": "Change the default authentication of ${NEO4J_USERNAME}..."
     : '
