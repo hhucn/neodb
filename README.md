@@ -7,15 +7,16 @@ With Neo4J it is possible to display and record data quickly and efficiently in 
 In order for NeoDB to work properly and interact with D-BAS, some environment variables must be set in advance.
 These environment variables must be specified in the `.env`. In total, the following variables must be included.
 
-| Variable        | Use                                         | Value      |
-| --------------- |:-------------------------------------------:|:----------:|
-| NEO4J_USER      | Name of the Neo4J user                      | neo4j      |
-| NEO4J_PW        | Password for the Neo4J user                 | choose one |
-| DB_PW           | D-BAS DB Password                           | See D-BAS  |
-| DB_HOST         | The name of the D-BAS DB service            | See D-BAS  |
-| DB_NAME         | Name of D-BAS DB                            | See D-BAS  |
-| DB_PORT         | Port of D-BAS DB                            | See D-BAS  |
-| DB_USER         | User of D-BAS DB                            | See D-BAS  |
+| Variable        | Use                                         | Value                        |
+| --------------- |:-------------------------------------------:|:----------------------------:|
+| NEO4J_USERNAME  | Name of the Neo4J user                      | neo4j                        |
+| NEO4J_PASSWORD  | Password for the Neo4J user                 | choose one                   |
+| NEO4J_AUTH      | Authentication for the User                 | NEO4J_USERNAME/NEO4J_PASSWORD|
+| DB_PW           | D-BAS DB Password of the live version       | See D-BAS                    |
+| DB_HOST         | The name of the D-BAS DB service            | See D-BAS                    |
+| DB_NAME         | Name of D-BAS DB                            | See D-BAS                    |
+| DB_PORT         | Port of D-BAS DB                            | See D-BAS                    |
+| DB_USER         | User of D-BAS DB                            | See D-BAS                    |
 
 ## Environment variables for production
 The file with the environment variables for production should be named: `.production.env`.
