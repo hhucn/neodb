@@ -9,7 +9,7 @@ services:
     volumes:
       - ./neo4j/entrypoint:/var/lib/neo4j/entrypoint
     env_file:
-      - .production.env
+      - production.env
 networks:
   default:
     external:
