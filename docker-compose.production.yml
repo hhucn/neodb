@@ -5,7 +5,7 @@ services:
     image: gitlab.cs.uni-duesseldorf.de:5001/cn-tsn/project/dbas/neodb
     ports:
       - "5007:7474"
-      - "7687:7687"
+      - "7687:7473"
     volumes:
       - ./neo4j/entrypoint:/var/lib/neo4j/entrypoint
     env_file:
