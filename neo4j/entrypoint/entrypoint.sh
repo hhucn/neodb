@@ -33,7 +33,10 @@ function seed_database {
 	fi
 	bash /var/lib/neo4j/entrypoint/entrypoint_parameters.sh > /var/lib/neo4j/entrypoint/.tmp
 	echo  $(</var/lib/neo4j/entrypoint/neo4j-entrypoint.cql) >> /var/lib/neo4j/entrypoint/.tmp
-	bin/cypher-shell --fail-fast --debug --format verbose -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD}  < /var/lib/neo4j/entrypoint/.tmp
+	if [ -z "$NEO4J_USERNAME" ] && [ -z "$NEO4J_PASSWORD" ] ;
+	  then bin/cypher-shell --fail-fast --debug --format verbose < /var/lib/neo4j/entrypoint/.tmp;
+	  else bin/cypher-shell --fail-fast --debug --format verbose -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD}  < /var/lib/neo4j/entrypoint/.tmp;
+	fi
 	rm /var/lib/neo4j/entrypoint/.tmp
 
 }
@@ -49,15 +52,17 @@ function wait_for_neo {
     wait_for_port localhost 7687
     wait_for_port localhost 7474
     wait_for_port ${DB_HOST} ${DB_PORT}
-
-    echo "$(date "+%Y-%m-%d %T") INFO": "Change the default authentication of ${NEO4J_USERNAME}..."
-    : '
-        Attention. Since this script only overwrites the password of the default user when loading the Neo4j container,
-        the name of the default user for the default password is used as the second argument.
-        Therefore, the default user name should still be used.
-    '
-    bash /var/lib/neo4j/entrypoint/hide_default_password.sh ${NEO4J_USERNAME} ${NEO4J_USERNAME} ${NEO4J_PASSWORD} 2>/dev/null
-
+    if [ -z "$NEO4J_USERNAME" ] && [ -z "$NEO4J_PASSWORD" ] ;
+    then echo "$(date "+%Y-%m-%d %T") INFO": "No authentication is required!";
+    else
+      echo "$(date "+%Y-%m-%d %T") INFO": "Change the default authentication of ${NEO4J_USERNAME}..."
+      : '
+          Attention. Since this script only overwrites the password of the default user when loading the Neo4j container,
+          the name of the default user for the default password is used as the second argument.
+          Therefore, the default user name should still be used.
+      '
+      bash /var/lib/neo4j/entrypoint/hide_default_password.sh ${NEO4J_USERNAME} ${NEO4J_USERNAME} ${NEO4J_PASSWORD} 2>/dev/null;
+    fi
     echo "$(date "+%Y-%m-%d %T") INFO": "Inject data to database..."
     : '
         This section loads the basic discussion graphs.
